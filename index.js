@@ -1,4 +1,4 @@
 
-var hello = require("./hello-world.js");
+var hello = require("./lib/hello-world.js");
 
 console.log(hello.phrase);
