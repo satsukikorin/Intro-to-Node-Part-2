@@ -2,7 +2,7 @@
 var express    =    require('express');
 var app        =    express();
 
-require('./routes')(app);
+require('./router.js')(app);
 app.set('views',__dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
