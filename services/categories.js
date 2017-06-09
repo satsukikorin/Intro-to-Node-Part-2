@@ -13,7 +13,26 @@ module.exports = {
             json: true
         };
 
-        return request(options);
+        var servicePromise = new Promise((resolve, reject) => {
+            
+            let fetch = request(options) || undefined;
+            
+            fetch.then(function(categories){
+                
+                let categoryList = category ? (categories[category] || undefined) : categories;
+            
+                if ( categoryList ) {
+                    resolve( categoryList );
+                }
+                else {
+                    reject( {} );
+                }
+            
+            });
+            
+        });
+
+        return servicePromise;
     }
 	
-}
+};

@@ -19,35 +19,64 @@ module.exports = function(app){
     	               categories: categories
     	          };
     	          
-         		res.render('index.html',viewModel);
-         	});
+        		res.render('index.html',viewModel);
+        	});
         
      });
      
-     app.get('/category/:category', function (req, res) {
+     app.get('/:category', function (req, res) {
           
           let category = req.params.category || "";
           
-          let fetch = new Promise(
+          let fetchCategory = new Promise(
        		(resolve, reject) => {
-            	     resolve(bookService.get(category));
+            	     resolve(categoryService.get(category));
+        	     }
+    	     );
+    	     
+          let fetchBooks = new Promise(
+       		(resolve, reject) => {
+            	     resolve(bookService.getByCategory(category));
         	     }
     	     );
 
-    	     fetch.then(function(books){
+          Promise.all([fetchCategory,fetchBooks]).then( values => { 
+               
+               let category = values.shift(); 
+               let books = values.shift(); 
+               
     	          let viewModel = {
                     category:category,
-    	               books: books[category]
+    	               books: books
     	          };
     	          
-         		res.render('index.html',viewModel);
-         	});
+        		res.render('index.html',viewModel);
+        	});
           
      });
      
      
-     app.get('/category/:category/isbn/:isbn', function (req, res) {
-          res.send(req.params.isbn);
+     app.get('/book/:isbn', function (req, res) {
+          
+          let isbn = req.params.isbn;
+          
+          let fetchBook = new Promise(
+       		(resolve, reject) => {
+            	     resolve(bookService.getByISBN(isbn));
+        	     }
+    	     );
+    	     
+    	     fetchBook.then(function(book){
+    	          
+    	          let viewModel = {
+    	               category: "",
+    	               isbn: isbn,
+    	               book: book
+    	          };
+    	          
+        		res.render('index.html',viewModel);
+    	     });
+        	
      });
      
 };

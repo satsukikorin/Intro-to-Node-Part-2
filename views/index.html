@@ -1,7 +1,7 @@
 <html>
     
     <head>
-        <title>My BookStore <%= category ? " | " + category : ""  %></title>
+        <title>My BookStore <%= category ? " | " + category.label : ""  %></title>
     </head>
     
     <body>
@@ -10,24 +10,33 @@
             <div>
                 <% for( let category in categories ) { %>
                     <div>
-                        <a href="/category/<%= category %>"><%= categories[category].label %></a>
+                        <a href="/<%= category %>"><%= categories[category].label %></a>
                     </div>
                 <% } %>
             </div>
         <% } %>
         
-        <% if( category ) { %>
+        <% if( typeof category == "object" ) { %>
             <div>
-                <h2><%= category %></h2>
+                <h2><%= category.label %></h2>
+                <h3><%= category.description %></h3>
                 <div>
                 <% for( let book in books ) { %>
                     <div>
-                        <a href="/category/<%= category %>/isbn/<%= book %>"><%= books[book].title %></a>
+                        <a href="/book/<%= book %>"><%= books[book].title %></a>
                     </div>
                 <% } %>
             </div>
             </div>
         <% } %>
+        
+        <% if( typeof book == "object" ) { %>
+            <div>
+                <h2><%= book.title %></h2>
+                <small><%= isbn %></small>
+            </div>
+            </div>
+        <% } %>   
 
     <body>
         
