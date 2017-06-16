@@ -5,7 +5,7 @@ module.exports = {
     
     get: function(category) {
         
-        let options = {
+        var options = {
             uri: categoryServiceEndpoint,
             headers: {
                 'User-Agent': 'Request-Promise'
@@ -13,7 +13,7 @@ module.exports = {
             json: true
         };
 
-        let servicePromise = new Promise((resolve, reject) => {
+        var servicePromise = new Promise((resolve, reject) => {
             
             var fetch = request(options) || undefined;
             

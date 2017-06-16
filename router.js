@@ -34,7 +34,7 @@ module.exports = function(app){
                var categories = values.shift(); 
                var books = values.shift(); 
                
-    	          let viewModel = {
+    	          var viewModel = {
     	               categories: categories,
                     category:categories["mystery"],
     	               books: books
@@ -60,7 +60,7 @@ module.exports = function(app){
                var categories = values.shift(); 
                var books = values.shift(); 
                
-    	          let viewModel = {
+    	          var viewModel = {
     	               categories: categories,
                     category:categories["fantasy"],
     	               books: books
@@ -104,7 +104,7 @@ module.exports = function(app){
                var categories = values.shift(); 
                var books = values.shift(); 
                
-    	          let viewModel = {
+    	          var viewModel = {
     	               categories: categories,
                     category:categories[category],
     	               books: books
