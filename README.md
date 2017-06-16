@@ -30,5 +30,5 @@ nvm alias default 6
 npm install
 ```
 
-(4) Start the server by opening the "server.js" file and clickign the "Run" button
+(4) Start the server by opening the "server.js" file and clicking the "Run" button.
 
