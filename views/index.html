@@ -1,43 +1,117 @@
-<html>
-    
-    <head>
-        <title>My BookStore <%= category ? " | " + category.label : ""  %></title>
-    </head>
-    
-    <body>
+<!DOCTYPE html>
+<html lang="en">
 
-        <% if( typeof categories == "object" ) { %>
-            <div>
-                <% for( let category in categories ) { %>
-                    <div>
-                        <a href="/<%= category %>"><%= categories[category].label %></a>
-                    </div>
-                <% } %>
-            </div>
-        <% } %>
-        
-        <% if( typeof category == "object" ) { %>
-            <div>
-                <h2><%= category.label %></h2>
-                <h3><%= category.description %></h3>
-                <div>
-                <% for( let book in books ) { %>
-                    <div>
-                        <a href="/book/<%= book %>"><%= books[book].title %></a>
-                    </div>
-                <% } %>
-            </div>
-            </div>
-        <% } %>
-        
-        <% if( typeof book == "object" ) { %>
-            <div>
-                <h2><%= book.title %></h2>
-                <small><%= isbn %></small>
-            </div>
-            </div>
-        <% } %>   
+<head>
 
-    <body>
-        
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Alejandra's BookStore <%= category ? " | " + category.label : ""  %></title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/assets/css/shop-homepage.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ALEJANDRA'S BOOKSTORE</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">Browse by Genre</p>
+                <div class="list-group">
+                    <% if( typeof categories == "object" ) { %>
+                        <% for( var categoryID in categories ) { %>
+                            <a href="/<%= categoryID %>" class="list-group-item"><%= categories[categoryID].label %></a>
+                       <% } %>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row">
+                    
+                    <% if( typeof category == "object" ) { %>
+                    
+                        <h2><%= category.label %></h2>
+                        <h3><%= category.description %></h3>
+                
+                            
+                        <% for( var book in books ) { %>
+                            <div class="col-sm-4 col-lg-4 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="<%= books[book].coverImage %>" alt="">
+                                    <div class="caption">
+                                        <h4><%= books[book].title %></h4>
+                                        <h4><%= books[book].price %></h4>
+                                        <h6><%= books[book].author %></h6>
+                                        <h6><%= book %></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        <% } %>                    
+                        
+                    <% } %>                    
+                    
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; YOUR STORE NAME 2017</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="/assets/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+</body>
+
 </html>

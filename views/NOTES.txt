@@ -1,0 +1,4 @@
+Remove Ternaries
+
+Replace let and const with var
+

@@ -1,6 +1,6 @@
-let bookServiceEndpoint = "http://www.mocky.io/v2/59306e67100000cb04995ed2";
+var bookServiceEndpoint = "http://www.mocky.io/v2/593a06041100003004a9557c";
 
-const request = require('request-promise');
+var request = require('request-promise');
 
 module.exports = {
     
@@ -16,7 +16,7 @@ module.exports = {
 
         var servicePromise = new Promise((resolve, reject) => {
             
-            let fetch = request(options) || undefined;
+            var fetch = request(options) || undefined;
             
             fetch.then(function(books){
                 
@@ -24,48 +24,18 @@ module.exports = {
                     resolve( books[category] );
                 }
                 else {
-                    reject( {} );
-                }
-            
-            });
-            
-        });
-
-        return servicePromise;
-    },
-    getByISBN: function(isbn) {
-        
-        var options = {
-            uri: bookServiceEndpoint,
-            headers: {
-                'User-Agent': 'Request-Promise'
-            },
-            json: true
-        };
-
-        var servicePromise = new Promise((resolve, reject) => {
-            
-            let fetch = request(options) || undefined;
-            
-            fetch.then(function(books){
-                
-                for( let category in books ) { 
-                    for ( let book in books[category] ) { 
-                        if ( book == isbn ) { 
-                            resolve( books[category][book] );
+                    reject(
+                        { 
+                            error: "No Books Found"
                         }
-                    }
+                    );
                 }
-                
-                reject( {} );
-                
+            
             });
             
         });
 
         return servicePromise;
     }
-    
-    
 	
 }

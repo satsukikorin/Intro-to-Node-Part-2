@@ -1,11 +1,11 @@
-let categoryServiceEndpoint = "http://www.mocky.io/v2/59303d221000006d02995e6e";
-const request = require('request-promise');
+var categoryServiceEndpoint = "http://www.mocky.io/v2/594418951200000b0dfcb574";
+var request = require('request-promise');
 
 module.exports = {
     
     get: function(category) {
         
-        var options = {
+        let options = {
             uri: categoryServiceEndpoint,
             headers: {
                 'User-Agent': 'Request-Promise'
@@ -13,21 +13,39 @@ module.exports = {
             json: true
         };
 
-        var servicePromise = new Promise((resolve, reject) => {
+        let servicePromise = new Promise((resolve, reject) => {
             
-            let fetch = request(options) || undefined;
+            var fetch = request(options) || undefined;
             
             fetch.then(function(categories){
                 
-                let categoryList = category ? (categories[category] || undefined) : categories;
-            
-                if ( categoryList ) {
-                    resolve( categoryList );
+                var categoryList = {};
+                
+                if ( typeof categories === "object" ) {
+                    
+                    if ( category ) {
+                        
+                        if ( categories[category] ) { 
+                            
+                            categoryList = categories[category];
+                            
+                        }
+                        
+                    }
+                    else {
+                        categoryList = categories;
+                    }
+                    
+                    resolve(categoryList);
                 }
                 else {
-                    reject( {} );
+                    reject(
+                        { 
+                            error: "No Categories Found"
+                        }
+                    );
                 }
-            
+                    
             });
             
         });
