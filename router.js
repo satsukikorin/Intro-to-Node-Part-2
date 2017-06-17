@@ -14,8 +14,11 @@ module.exports = function(app){
     	          
         		res.render('index.html',viewModel);
         		
-          });
-          
+          })
+          .catch(function(err) {
+               console.error(err);
+        		res.render('Sorry, there was an error. Please hit Back in your browser and try again.');
+          });          
      });
      
      
