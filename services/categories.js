@@ -2,55 +2,38 @@ var categoryServiceEndpoint = "http://www.mocky.io/v2/594418951200000b0dfcb574";
 var request = require('request-promise');
 
 module.exports = {
-    
+
     get: function(category) {
-        
+
         var options = {
             uri: categoryServiceEndpoint,
-            headers: {
-                'User-Agent': 'Request-Promise'
-            },
             json: true
         };
 
-        var servicePromise = new Promise((resolve, reject) => {
-            
-            var fetch = request(options) || undefined;
-            
-            fetch.then(function(categories){
-                
-                var categoryList = {};
-                
-                if ( typeof categories === "object" ) {
-                    
-                    if ( category ) {
-                        
-                        if ( categories[category] ) { 
-                            
-                            categoryList = categories[category];
-                            
-                        }
-                        
-                    }
-                    else {
-                        categoryList = categories;
-                    }
-                    
-                    resolve(categoryList);
+        var servicePromise = request(options).then(function(categories){
+
+            if ( typeof categories !== "object" ) {
+
+                throw new Error("No Categories Found.");
+            }
+
+            var categoryResult = {};
+
+            if ( category ) {
+
+                if ( categories[category] ) {
+
+                    categoryResult = categories[category];
                 }
-                else {
-                    reject(
-                        { 
-                            error: "No Categories Found"
-                        }
-                    );
-                }
-                    
-            });
-            
+            }
+            else {
+                categoryResult = categories;
+            }
+
+            return categoryResult;
         });
 
         return servicePromise;
     }
-	
+
 };
